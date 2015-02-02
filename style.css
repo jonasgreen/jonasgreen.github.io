@@ -1,0 +1,35 @@
+body { background: #0A1721; margin: 0; }
+
+#topContainer { padding-left: 50px; padding-top:50px;}
+
+.welcome { font: 35px Helvetica, Arial; color: #0A1721; padding-left:50px; padding-top:50px;}
+
+.middle { background: white; margin: 0; }
+
+
+h1 { font: bold 10px Helvetica, Arial; color: #F0F0F0; }
+p { font: 10px Helvetica, Arial; color: #F0F0F0; }
+
+a { font: 10px Helvetica, Arial; color: #F0F0F0; text-decoration: underline; }
+a:hover{ color: black; text-decoration: none; background: #F0F0F0; }
+
+.firstColumn { float: left; padding: 0 60px 20px 0; }
+.column { float: left; padding: 0 70px 20px 0; }
+
+.picture{ 
+padding:20px; padding-left:50px;
+}
+
+.bottomtext {font: 12px Helvetica, Arial; color: #000000; padding: 50px; padding-top: 30px;padding-bottom:50px; width:420px;}
+
+.ref{
+float:bottom; padding-left: 50px; font-style:italic;
+}
+
+
+/* @group Clear */
+
+.clear:after { content: "."; display: block; height: 0; visibility: hidden; }
+.clear { clear: both; }
+
+/* @end */
