@@ -24,8 +24,6 @@ a{}
     flex-wrap: wrap;
 }
 
-
-
 .title {
     font-weight: bold;
     letter-spacing: 1px;
@@ -37,6 +35,14 @@ a{}
     white-space: nowrap;
     font-size: 16px;
 }
+
+.subtitle-name {
+    padding-top: 10px;
+}
+
+
+
+
 
 .ear-box {
     height: 3px;
@@ -88,3 +94,34 @@ a{}
 }
 
 
+@media screen and (max-device-width: 1199px) {
+    .title {
+        letter-spacing: 3px;
+    }
+    .box-bottom {
+        font-size: 60px;
+    }
+    .subtitle {
+        font-size: 54px;
+    }
+    .subtitle-name {
+        padding-top: 40px;
+    }
+    .box-top{
+        padding: 100px;
+    }
+    .box-bottom{
+        padding: 0 100px 80px;
+
+    }
+    .state-box {
+        border-radius: 15px 15px 15px 15px;
+        width: 160px;
+        height: 160px;
+    }
+    .sep-box {
+        height: 1px;
+        width: 100px;
+        background-color: rgba(155, 171, 179, 0.2);
+    }
+}
