@@ -139,3 +139,11 @@ a{}
     }
 
 }
+
+@media screen and (max-device-width: 1199px) and (orientation: landscape){
+    .state-box {
+        border-radius: 10px 10px 10px 10px;
+        width: 80px;
+        height: 80px;
+    }
+}
