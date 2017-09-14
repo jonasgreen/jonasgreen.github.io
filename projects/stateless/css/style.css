@@ -146,4 +146,12 @@ a{}
         width: 80px;
         height: 80px;
     }
+    .box-bottom {
+        font-size: 40px;
+    }
+    .subtitle {
+        font-size: 36px;
+    }
 }
+
+
