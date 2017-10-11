@@ -1,3 +1,10 @@
+body {
+    height: 100vh;
+    width: 100vw;
+    background: black;"
+}
+
+
 .background {
     display: flex;
     flex-direction: column;
@@ -5,7 +12,6 @@
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    background: black;"
 }
 
 .background-image{
