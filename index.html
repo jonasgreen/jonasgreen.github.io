@@ -7,12 +7,10 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     
 </head>
-<body>
+<>
 
 <script>
-    window.addEventListener("click", clickPhoto);
     document.addEventListener('keydown', function(event) {
-        console.log(event);
         if (event.code === 'ArrowLeft') {
             previousPhoto();
             updatePhotoElement();
@@ -54,11 +52,14 @@
         updatePhotoElement();
     }
 
-    function clickPhoto(event){
+    function left(event){
+        previousPhoto();
+        updatePhotoElement();
+    }
+
+    function right(event){
         nextPhoto();
         updatePhotoElement();
-        event.preventDefault();
-        event.stopPropagation();
     }
 
 </script>
@@ -66,10 +67,12 @@
 
 
 <div id="doodle" class="doodle">
-    <img id="img1" class="img" src="" alt="" onclick= "clickPhoto()">
-    <img id="img2" class="img" src="" alt="" onclick= "clickPhoto()">
+    <img id="img1" class="img" src="" alt="">
+    <img id="img2" class="img" src="" alt="">
 </div>
 
+<div class="overlay-left" onclick="left()"></div>
+<div class="overlay-right" onclick="right()"></div>
 
 <script src="https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=29da47a7c030efd6a30b96cad599a036&photoset_id=72157679203556818&format=json"></script>
 
