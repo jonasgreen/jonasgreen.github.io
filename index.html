@@ -7,10 +7,10 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     
 </head>
-<body onclick="clickPhoto()">
+<body>
 
 <script>
-
+    window.addEventListener("click", clickPhoto);
     document.addEventListener('keydown', function(event) {
         console.log(event);
         if (event.code === 'ArrowLeft') {
