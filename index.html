@@ -7,7 +7,7 @@
     <link href="css/reset.css" rel="stylesheet" type="text/css">
     
 </head>
-<body>
+<body onclick="clickPhoto()">
 
 <script>
 
@@ -54,13 +54,20 @@
         updatePhotoElement();
     }
 
+    function clickPhoto(event){
+        nextPhoto();
+        updatePhotoElement();
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
 </script>
 
 
 
 <div id="doodle" class="doodle">
-    <img id="img1" class="img" src="" alt="" onclick= "nextPhoto();updatePhotoElement()">
-    <img id="img2" class="img" src="" alt="" onclick= "nextPhoto();updatePhotoElement()">
+    <img id="img1" class="img" src="" alt="" onclick= "clickPhoto()">
+    <img id="img2" class="img" src="" alt="" onclick= "clickPhoto()">
 </div>
 
 
