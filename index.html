@@ -47,7 +47,7 @@
 
     function jsonFlickrApi(rsp) {
         window.rsp = rsp;
-        window.photos = rsp.photoset.photo;
+        window.photos = rsp.photoset.photo.reverse();
         window.photoIndex = 0;
         updatePhotoElement();
     }
