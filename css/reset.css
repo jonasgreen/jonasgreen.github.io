@@ -56,35 +56,35 @@ a:hover {
     position: absolute;
     opacity: 0;
     z-index: 100;
-    transition: opacity 0.3s;
+    transition: opacity 150ms;
 }
 
-.overlay-left{
-    position: fixed;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    font-size: 40px;
-    z-index: 1000;
-    display: flex;
-    justify-content: flex-start;
+.navigation{
     align-items: center;
-    padding-left: 20px;
     color: rgba(101,101,101,0.3);
     cursor: pointer;
+    display: flex;
+    font-size: 40px;
+    height: 100%;
+    position: fixed;
+    width: 50%;
+    z-index: 1000;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.overlay-right{
-    position: fixed;
+
+.navigation-right{
     right: 0;
-    width: 50%;
-    height: 100%;
-    font-size: 40px;
-    z-index: 1000;
-    display: flex;
     justify-content: flex-end;
-    align-items: center;
     padding-right: 20px;
-    color: rgba(101,101,101,0.3);
-    cursor: pointer;
+}
+
+.navigation-left{
+    left: 0;
+    justify-content: flex-start;
+    padding-left: 20px;
 }

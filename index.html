@@ -26,26 +26,22 @@
 
     function nextPhoto(){
         window.photoIndex = window.photoIndex < (window.photos.length -1) ? window.photoIndex + 1 : 0;
-        console.log(window.photoIndex);
     }
 
     function previousPhoto(){
         window.photoIndex = window.photoIndex === 0 ? window.photos.length -1 : window.photoIndex -1;
-        console.log(window.photoIndex);
     }
 
     function updatePhotoElement(){
-        var elementOne = document.getElementById("img1");
-        var elementTwo = document.getElementById("img2");
-        var elems = window.photoIndex % 2 === 0 ? [elementOne, elementTwo] : [elementTwo, elementOne];
-
-        elems[0].src = photoUrl(window.photos[window.photoIndex]);
-        elems[0].style.opacity = "1";
-        elems[1].style.opacity = "0";
+        let elem = document.getElementById("img");
+        elem.style.opacity = "0";
+        setTimeout(e => {
+            elem.src = photoUrl(window.photos[window.photoIndex]);
+            elem.style.opacity = "1";
+        }, 150);
     }
 
     function jsonFlickrApi(rsp) {
-        window.rsp = rsp;
         window.photos = rsp.photoset.photo.reverse();
         window.photoIndex = 0;
         updatePhotoElement();
@@ -64,14 +60,12 @@
 </script>
 
 
-
 <div id="doodle" class="doodle">
-    <img id="img1" class="img" src="" alt="">
-    <img id="img2" class="img" src="" alt="">
+    <img id="img" class="img" src="" alt="">
 </div>
 
-<div class="overlay-left" onclick="left()">&#8249;</div>
-<div class="overlay-right" onclick="right()">&#8250;</div>
+<div class="navigation navigation-left" onclick="left()">&#8249;</div>
+<div class="navigation navigation-right" onclick="right()">&#8250;</div>
 
 <script src="https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=29da47a7c030efd6a30b96cad599a036&photoset_id=72157679203556818&format=json"></script>
 
