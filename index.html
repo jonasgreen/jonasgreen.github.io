@@ -12,11 +12,11 @@
     document.addEventListener('keydown', function(event) {
         if (event.code === 'ArrowLeft') {
             previousPhoto();
-            updatePhotoElement();
+            replacePhotoElement();
         }
         else if (event.code === 'ArrowRight') {
             nextPhoto();
-            updatePhotoElement();
+            replacePhotoElement();
         }
     });
 
@@ -32,29 +32,39 @@
         window.photoIndex = window.photoIndex === 0 ? window.photos.length -1 : window.photoIndex -1;
     }
 
-    function updatePhotoElement(){
+    function replacePhotoElement(){
         let elem = document.getElementById("img");
+        let parent = elem.parentNode;
+        parent.removeChild(elem);
+
+        elem = document.createElement("img");
+        elem.id = "img";
+        elem.src = photoUrl(window.photos[window.photoIndex]);
+        parent.appendChild(elem);
         elem.style.opacity = "0";
-        setTimeout(e => {
-            elem.src = photoUrl(window.photos[window.photoIndex]);
-            elem.style.opacity = "1";
-        }, 150);
+        elem.style.transition = "opacity 250ms";
+
+        requestAnimationFrame(_ => {
+            setTimeout(() => elem.style.opacity = "1", 50);
+        });
+
+
     }
 
     function jsonFlickrApi(rsp) {
         window.photos = rsp.photoset.photo.reverse();
         window.photoIndex = 0;
-        updatePhotoElement();
+        replacePhotoElement();
     }
 
     function left(event){
         previousPhoto();
-        updatePhotoElement();
+        replacePhotoElement();
     }
 
     function right(event){
         nextPhoto();
-        updatePhotoElement();
+        replacePhotoElement();
     }
 
 </script>
