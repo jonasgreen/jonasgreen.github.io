@@ -5,77 +5,134 @@
     <title>Jonas Green</title>
 
     <link href="css/reset.css" rel="stylesheet" type="text/css">
-    
+
 </head>
 <body>
 <script>
-    document.addEventListener('keydown', function(event) {
+
+    //State
+    let state = {
+        photos: [],
+        photoIndex: 0,
+        showThumbnails: false
+    };
+
+    //Update state functions
+    function nextPhotoIndex() {
+        state.photoIndex = state.photoIndex < (state.photos.length - 1) ? state.photoIndex + 1 : 0;
+    }
+
+    function previousPhotoIndex() {
+        state.photoIndex = state.photoIndex === 0 ? state.photos.length - 1 : state.photoIndex - 1;
+    }
+
+    //Api
+    function nextImage() {
+        nextPhotoIndex();
+        replacePhotoElement();
+    }
+
+    function previousImage() {
+        previousPhotoIndex();
+        replacePhotoElement();
+    }
+
+    function showThumbnail(index) {
+        state.photoIndex = index;
+        replacePhotoElement();
+        state.showThumbnails = true;
+        togglePhotoState();
+    }
+
+    function togglePhotoState() {
+        state.showThumbnails = !state.showThumbnails;
+        let elems = [document.getElementById("thumbnails"), document.getElementById("doodle")];
+
+        //first element is set to visible
+        elems = state.showThumbnails ? elems : elems.reverse();
+
+        elems[0].style.display = null;
+        elems[1].style.display = "none";
+    }
+
+    //Util
+    function photoUrl(photo, thumbnail) {
+        return "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + (thumbnail ? "_t" : "") + ".jpg";
+    }
+
+
+    //User interaction
+    document.addEventListener('keydown', function (event) {
+        console.log(event.code);
         if (event.code === 'ArrowLeft') {
-            previousPhoto();
-            replacePhotoElement();
-        }
-        else if (event.code === 'ArrowRight') {
-            nextPhoto();
-            replacePhotoElement();
+            previousImage();
+        } else if (event.code === 'ArrowRight') {
+            nextImage();
+        } else if (event.code === 'Enter') {
+            togglePhotoState();
         }
     });
 
-    function photoUrl(photo){
-        return "https://farm" + photo.farm + ".staticflickr.com/" + photo.server + "/" + photo.id + "_" + photo.secret + ".jpg";
-    }
 
-    function nextPhoto(){
-        window.photoIndex = window.photoIndex < (window.photos.length -1) ? window.photoIndex + 1 : 0;
-    }
-
-    function previousPhoto(){
-        window.photoIndex = window.photoIndex === 0 ? window.photos.length -1 : window.photoIndex -1;
-    }
-
-    function replacePhotoElement(){
+    //Dom manipulation
+    function replacePhotoElement() {
         let elem = document.getElementById("img");
         let parent = elem.parentNode;
         parent.removeChild(elem);
 
         elem = document.createElement("img");
         elem.id = "img";
-        elem.src = photoUrl(window.photos[window.photoIndex]);
+        elem.src = photoUrl(state.photos[state.photoIndex], false);
         parent.appendChild(elem);
         elem.style.opacity = "0";
         elem.style.transition = "opacity 250ms";
+        elem.addEventListener("click", evt => togglePhotoState());
 
         requestAnimationFrame(_ => {
             setTimeout(() => elem.style.opacity = "1", 50);
         });
-
-
     }
 
+    //called on load
     function jsonFlickrApi(rsp) {
-        window.photos = rsp.photoset.photo.reverse();
-        window.photoIndex = 0;
+        state.photos = rsp.photoset.photo.reverse();
+        state.photoIndex = 0;
+        state.showThumbnails = false;
         replacePhotoElement();
-    }
 
-    function left(event){
-        previousPhoto();
-        replacePhotoElement();
-    }
+        let elem = document.getElementById("thumbnails");
+        elem.style.display = "none";
+        let index = 0;
+        state.photos.forEach(p => {
+            let div = document.createElement("div");
+            let i = index;
+            div.id = "thumbnail" + i;
+            div.setAttribute("class", "thumbnail");
+            div.addEventListener("click", event => showThumbnail(i));
 
-    function right(event){
-        nextPhoto();
-        replacePhotoElement();
+            let img = document.createElement("img");
+            img.src = photoUrl(p, true);
+            div.appendChild(img);
+            elem.appendChild(div);
+
+            index++;
+        })
+
     }
 
 </script>
 
+<div id="thumbnails" class="thumbnails">
+
+
+</div>
 
 <div id="doodle" class="doodle">
     <img id="img" class="img" src="" alt="">
+    <div class="navigation navigation-left" onclick="previousImage()">&#8249;</div>
+    <div class="navigation navigation-right" onclick="nextImage()">&#8250;</div>
 </div>
 
-<div class="navigation navigation-left" onclick="left()">&#8249;</div>
-<div class="navigation navigation-right" onclick="right()">&#8250;</div>
 
 <script src="https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=29da47a7c030efd6a30b96cad599a036&photoset_id=72157679203556818&format=json"></script>
 
