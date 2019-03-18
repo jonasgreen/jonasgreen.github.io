@@ -122,18 +122,17 @@
 
 </script>
 
-<div id="thumbnails" class="thumbnails">
+<div id="application" class="application">
+    <div id="thumbnails" class="thumbnails">
+    </div>
 
+    <div id="doodle" class="doodle">
+        <img id="img" class="img" src="" alt="">
+        <div class="navigation navigation-left" onclick="previousImage()">&#8249;</div>
+        <div class="navigation navigation-right" onclick="nextImage()">&#8250;</div>
+    </div>
 
 </div>
-
-<div id="doodle" class="doodle">
-    <img id="img" class="img" src="" alt="">
-    <div class="navigation navigation-left" onclick="previousImage()">&#8249;</div>
-    <div class="navigation navigation-right" onclick="nextImage()">&#8250;</div>
-</div>
-
-
 <script src="https://api.flickr.com/services/rest/?method=flickr.photosets.getPhotos&api_key=29da47a7c030efd6a30b96cad599a036&photoset_id=72157679203556818&format=json"></script>
 
 </body>
