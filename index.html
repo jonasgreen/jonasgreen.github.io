@@ -28,16 +28,19 @@
 
     //Api
     function nextImage() {
+        document.getElementById(state.photos[state.photoIndex].id).style.borderColor = "white";
         nextPhotoIndex();
         replacePhotoElement();
     }
 
     function previousImage() {
+        document.getElementById(state.photos[state.photoIndex].id).style.borderColor = "white";
         previousPhotoIndex();
         replacePhotoElement();
     }
 
     function showThumbnail(index) {
+        document.getElementById(state.photos[state.photoIndex].id).style.borderColor = "white";
         state.photoIndex = index;
         replacePhotoElement();
         state.showThumbnails = true;
@@ -90,6 +93,12 @@
         requestAnimationFrame(_ => {
             setTimeout(() => elem.style.opacity = "1", 50);
         });
+
+        let elementById = document.getElementById(state.photos[state.photoIndex].id);
+        if(elementById !== null){
+            elementById.style.borderColor = "blue";
+        }
+
     }
 
     //called on load
@@ -97,7 +106,6 @@
         state.photos = rsp.photoset.photo.reverse();
         state.photoIndex = 0;
         state.showThumbnails = false;
-        replacePhotoElement();
 
         let elem = document.getElementById("thumbnails");
         elem.style.display = "none";
@@ -105,7 +113,7 @@
         state.photos.forEach(p => {
             let div = document.createElement("div");
             let i = index;
-            div.id = "thumbnail" + i;
+            div.id = p.id;
             div.setAttribute("class", "thumbnail");
             div.addEventListener("click", event => showThumbnail(i));
 
@@ -116,6 +124,8 @@
 
             index++;
         });
+        replacePhotoElement();
+
 
         window.addEventListener("touchstart", e => handleTouchStart(e), {passive: true});
         window.addEventListener("touchend", e => handleTouchEnd(e), {passive: true});
