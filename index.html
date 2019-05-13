@@ -132,17 +132,7 @@
     }
 
     function handleTouchEnd(e){
-        if(state.touchstart !== -1 && !isMultiTouch(e)){
-            dx = e.changedTouches[0].pageX - state.touchstart;
-            if(dx > 150){
-                previousImage();
-                state.touchstart = -1;
-            }
-            else if(dx < -150){
-                nextImage();
-                state.touchstart = -1;
-            }
-        }
+        swipe(e)
     }
 
     function handleTouchCancel(e){
@@ -155,6 +145,21 @@
         }
         else{
             e.preventDefault();
+            swipe(e);
+        }
+    }
+
+    function swipe(e){
+        if(state.touchstart !== -1 && !isMultiTouch(e)){
+            dx = e.changedTouches[0].pageX - state.touchstart;
+            if(dx > 150){
+                previousImage();
+                state.touchstart = -1;
+            }
+            else if(dx < -150){
+                nextImage();
+                state.touchstart = -1;
+            }
         }
     }
 
