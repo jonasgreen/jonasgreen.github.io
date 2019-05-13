@@ -117,10 +117,10 @@
             index++;
         });
 
-        window.addEventListener("touchstart", e => handleTouchStart(e), false);
-        window.addEventListener("touchend", e => handleTouchEnd(e), false);
-        window.addEventListener("touchcancel", e => handleTouchCancel(e), false);
-        window.addEventListener("touchmove", e => handleTouchMove(e), {passive: false});
+        window.addEventListener("touchstart", e => handleTouchStart(e), {passive: true});
+        window.addEventListener("touchend", e => handleTouchEnd(e), {passive: true});
+        window.addEventListener("touchcancel", e => handleTouchCancel(e), {passive: true});
+        window.addEventListener("touchmove", e => handleTouchMove(e), {passive: true});
     }
 
     function isMultiTouch(e){
@@ -152,11 +152,7 @@
     function handleTouchMove(e){
         if(isMultiTouch(e)) {
             state.touchstart = -1;
-            return;
         }
-
-        e.preventDefault();
-        e.stopPropagation();
     }
 
 </script>
