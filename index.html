@@ -133,13 +133,17 @@
         window.addEventListener("touchmove", e => handleTouchMove(e), {passive: false});
     }
 
+    function isMultiTouch(e){
+        console.log("multi: "+ e.changedTouches.length > 1 && e.targetTouches.length > 1);
+        return e.changedTouches.length > 1 && e.targetTouches.length > 1;
+    }
 
     function handleTouchStart(e){
         state.touchstart = e.changedTouches[0].pageX;
     }
 
     function handleTouchEnd(e){
-        if(state.touchstart !== -1){
+        if(state.touchstart !== -1 && !isMultiTouch(e)){
             dx = e.changedTouches[0].pageX - state.touchstart;
             if(dx > 150){
                 previousImage();
@@ -157,6 +161,8 @@
     }
 
     function handleTouchMove(e){
+        if(isMultiTouch(e)) return;
+
         e.preventDefault();
         e.stopPropagation();
     }
