@@ -23,7 +23,8 @@
     let state = {
         photos: [],
         photoIndex: 0,
-        showThumbnails: false
+        showThumbnails: false,
+        touchstart: -1
     };
 
     //Update state functions
@@ -125,8 +126,39 @@
             elem.appendChild(div);
 
             index++;
-        })
+        });
 
+        window.addEventListener("touchstart", e => handleTouchStart(e), false);
+        window.addEventListener("touchend", e => handleTouchEnd(e), false);
+        window.addEventListener("touchcancel", e => handleTouchCancel(e), false);
+        window.addEventListener("touchmove", e => handleTouchMove(e), false);
+    }
+
+
+    function handleTouchStart(e){
+        state.touchstart = e.changedTouches[0].pageX;
+    }
+
+    function handleTouchEnd(e){
+        if(state.touchstart !== -1){
+            dx = e.changedTouches[0].pageX - state.touchstart;
+            if(dx > 150){
+                nextImage();
+                state.touchstart = -1;
+            }
+            else if(dx < -150){
+                previousImage();
+                state.touchstart = -1;
+            }
+        }
+    }
+
+    function handleTouchCancel(e){
+        state.touchstart = -1;
+    }
+
+    function handleTouchMove(e){
+        //console.log("X: "+ e.changedTouches[0].pageX);
     }
 
 </script>
