@@ -161,7 +161,10 @@
     }
 
     function handleTouchMove(e){
-        if(isMultiTouch(e)) return;
+        if(isMultiTouch(e)) {
+            state.touchstart = -1;
+            return;
+        }
 
         e.preventDefault();
         e.stopPropagation();
