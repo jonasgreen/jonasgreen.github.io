@@ -158,7 +158,8 @@
     }
 
     function handleTouchMove(e){
-        //console.log("X: "+ e.changedTouches[0].pageX);
+        e.preventDefault();
+        e.stopPropagation();
     }
 
 </script>
