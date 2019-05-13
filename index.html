@@ -73,7 +73,6 @@
 
     //User interaction
     document.addEventListener('keydown', function (event) {
-        console.log(event.code);
         if (event.code === 'ArrowLeft') {
             previousImage();
         } else if (event.code === 'ArrowRight') {
@@ -131,7 +130,7 @@
         window.addEventListener("touchstart", e => handleTouchStart(e), false);
         window.addEventListener("touchend", e => handleTouchEnd(e), false);
         window.addEventListener("touchcancel", e => handleTouchCancel(e), false);
-        window.addEventListener("touchmove", e => handleTouchMove(e), false);
+        window.addEventListener("touchmove", e => handleTouchMove(e), {passive: false});
     }
 
 
@@ -143,11 +142,11 @@
         if(state.touchstart !== -1){
             dx = e.changedTouches[0].pageX - state.touchstart;
             if(dx > 150){
-                nextImage();
+                previousImage();
                 state.touchstart = -1;
             }
             else if(dx < -150){
-                previousImage();
+                nextImage();
                 state.touchstart = -1;
             }
         }
